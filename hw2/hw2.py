@@ -15,7 +15,7 @@ def read_input() -> int:
     return val
 
 
-def opener():
+def opener() -> iter:
     """Function opens initial csv file"""
     csvfile = open('Corp_Summary.csv', newline='', encoding='UTF8')
     file = csv.reader(csvfile, delimiter=';')
@@ -89,7 +89,7 @@ def option_2():
 
 
 def option_3():
-    """Function creates a csv file from a dictionary"""
+    """Function creates csv file from a dictionary"""
     report = report_maker(opener())
     header = ['Департамент', 'Численность', 'Минимум',
               'Средняя', 'Максимум']
