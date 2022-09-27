@@ -98,7 +98,7 @@ def option_3():
         report[dept].insert(0, dept)
         data.append(report[dept])
     file = open('Report.csv', 'w+', encoding='UTF8', newline='')
-    writer = csv.writer(file)
+    writer = csv.writer(file, delimiter=';')
     writer.writerow(header)
     writer.writerows(data)
     return
