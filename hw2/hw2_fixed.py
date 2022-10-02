@@ -21,7 +21,8 @@ def read_input() -> int:
 
 def dict_opener() -> dict:
     """Function opens csv file and forms a dictionary with values from
-        header as keys"""
+        header as keys
+        {'ФИО':['ФИО1','ФИО2',...],'Департамент':['Депт1',...],...}"""
     file_dict = defaultdict(list)
     with open('Corp_Summary.csv', newline='', encoding='UTF8') as csvfile:
         file = csv.DictReader(csvfile, delimiter=';')
