@@ -20,6 +20,8 @@ def read_input() -> int:
 
 
 def dict_opener() -> dict:
+    """Function opens csv file and forms a dictionary with values from
+        header as keys"""
     file_dict = defaultdict(list)
     with open('Corp_Summary.csv', newline='', encoding='UTF8') as csvfile:
         file = csv.DictReader(csvfile, delimiter=';')
@@ -112,7 +114,8 @@ def option_3(file_dict: dict):
 
 
 def choice(inp_num: int):
-    """Function runs 1 of 3 functions above depending on the input"""
+    """Function gets input value and
+        runs 1 of 3 functions above depending on the input"""
     file_dict = dict_opener()
     if inp_num == PRINT_HIERARCHY:
         option_1(file_dict)
