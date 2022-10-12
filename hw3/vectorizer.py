@@ -1,14 +1,16 @@
 class CountVectorizer:
+    """creates vectorized form of a text """
     def __init__(self, lowercase=True, vocabulary=None):
         self.lowercase = lowercase
         self.vocabulary = vocabulary
 
     def text_to_sequence(self, texts):
-        sent_list = texts
+        """splits given texts into unique tokens=words and writes it
+            in vocabulary"""
         vocabulary = []
         sent_length = []
-        for sent in range(len(sent_list)):
-            words = sent_list[sent].split(' ')
+        for sent in range(len(texts)):
+            words = texts[sent].split(' ')
             if self.lowercase:
                 words = [x.lower() for x in words]
             sent_length.append(len(words))
@@ -19,6 +21,9 @@ class CountVectorizer:
         return vocabulary
 
     def fit_transform(self, texts):
+        """learns the vocabulary, forms and returns
+            term-document matrix of texts based
+            on words from vocabulary"""
         if self.vocabulary is None:
             tokens = self.text_to_sequence(texts)
         else:
@@ -36,6 +41,7 @@ class CountVectorizer:
         return matrix
 
     def get_feature_names(self):
+        """prints out vocabulary if it's not empty"""
         if self.vocabulary is not None:
             return self.vocabulary
         else:
