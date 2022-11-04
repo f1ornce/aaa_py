@@ -1,0 +1,10 @@
+{
+   "title":"python",
+   "price":0,
+   "location":{
+      "address":"город Москва, Лесная, 7",
+      "metro_stations":[
+         "Белорусская"
+      ]
+   }
+}
