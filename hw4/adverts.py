@@ -40,27 +40,22 @@ class DefaultAttributer:
             value = None
         return value
 
-    def __setattr__(self, attr, value):
-        if keyword.iskeyword(attr):
-            attr = f"{attr}_"
-        __dict__ = super().__getattribute__("__dict__")
-        __dict__[attr] = value
-
 
 class DefaultStructure(DefaultAttributer):
-    def __init__(self, data_dict=None):
+    def __init__(self, data_dict):
         if data_dict:
             for key, value in data_dict.items():
+                if keyword.iskeyword(key):
+                    key = f"{key}_"
                 if isinstance(value, dict):
-                    self.__setattr__(key, DefaultStructure(value))
+                    setattr(self, key, DefaultStructure(value))
                 else:
-                    self.__setattr__(key, value)
+                    setattr(self, key, value)
 
 
 class AdvertStructure(DefaultStructure):
     def __init__(self, data_feed):
         data_dict = JsonParser().parse(data_feed)
-        print(data_dict)
         super().__init__(data_dict)
         if self.title is None:
             raise AttributeError("'title' was not provided")
@@ -95,12 +90,11 @@ class ColorizeMixin:
         super().__init__(*args)
 
     def __repr__(self):
-        return f'\033[1;{self.repr_color_code};2m{super().__repr__()}'
+        return f'\033[1;{self.repr_color_code};2m{super().__repr__()}\033[0m'
 
 
 class Advert(ColorizeMixin, AdvertStructure):
-    def __init__(self, data_feed):
-        super().__init__(data_feed)
+    pass
 
 
 JSON_FILEPATH = "./ads1.json"
@@ -122,10 +116,10 @@ DATA_STR = '''{
     }'''
 
 if __name__ == '__main__':
-    a = Advert(JSON_FILEPATH)
+    a = Advert(DATA_DICT)
+    print(a)
     print(a.title)
     print(a.price)
     print(a.location.address)
     print(a.location.metro_stations)
     print(a.class_)
-    print(a)
